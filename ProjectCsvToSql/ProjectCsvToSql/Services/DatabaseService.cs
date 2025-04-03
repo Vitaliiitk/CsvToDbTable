@@ -81,7 +81,7 @@ namespace ProjectCsvToSql.Services
 				using var reader = await command.ExecuteReaderAsync();
 				if (await reader.ReadAsync())
 				{
-					bool success = reader.GetInt32(0) == 1;
+					bool success = reader.GetBoolean(0);
 					int duplicatesFound = await reader.IsDBNullAsync(1) ? 0 : reader.GetInt32(1);
 					int remainingRecords = await reader.IsDBNullAsync(2) ? 0 : reader.GetInt32(2);
 

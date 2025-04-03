@@ -1,3 +1,6 @@
+USE MyCsvDb;
+GO
+
 CREATE OR ALTER PROCEDURE [dbo].[ExtractAndRemoveDuplicates]
 AS
 BEGIN
@@ -78,6 +81,10 @@ BEGIN
         );
         
         DECLARE @DuplicatesFound INT = @@ROWCOUNT;
+
+		DELETE FROM dbo.csv_data
+		WHERE id IN (SELECT id FROM dbo.duplicates);
+
         DECLARE @RemainingRecords INT = (SELECT COUNT(*) FROM dbo.csv_data);
         
         -- Commit if everything succeeded
